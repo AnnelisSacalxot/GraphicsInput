@@ -1,6 +1,6 @@
 /*primera sección: código usuario*/
 
-package analizadores;
+package archivosAnalizadores;
 import java_cup.runtime.Symbol;
 
 /*segunda sección: configuración*/

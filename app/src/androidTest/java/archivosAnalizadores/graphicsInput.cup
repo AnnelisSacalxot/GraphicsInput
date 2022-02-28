@@ -1,6 +1,7 @@
 /*primera sección: definicion del paquete e imports*/
 
-package analizadores;
+package archivosAnalizadores;
+import java_cup.runtime.*;
 
 /*segunda sección: de codigo de usuario*/
 
@@ -31,7 +32,7 @@ terminal String LETRA;
 //no terminales
 
 //non terminal Strin s;
-non terminal INICIO, GRAFICA_BARRAS,TITULO , EJEX, EJEY, UNIR GRAFICA_PIE;
+non terminal INICIO, GRAFICA_BARRAS,TITULO , EJEX, EJEY, UNIR, GRAFICA_PIE, EXTRA, UNIR, TOTAL, VALORES, ETIQUETAS, TIPO;
 
 /*cuarta sección:  declaracion de precedencia*/
 
@@ -62,8 +63,9 @@ EJEX				::=	DOSPUNTOS CORCHETEABRE COMILLAS LETRA ENTERO  COMILLAS COMA COMILLAS
 					;
 
 TITULO				::=	DOSPUNTOS COMILLA LETRA ENTERO COMILLA PUNTOCOMA
+                    ;
 
-GRAFICA_PIE		::= TITULO TIPO ETIQUETAS VALORES TOTAL UNIR EXTRA
+GRAFICA_PIE 	    ::= TITULO TIPO ETIQUETAS VALORES TOTAL UNIR EXTRA
 					;
 
 EXTRA				::= DOSPUNTOS COMILLA LETRA COMILLA PUNTOCOMA
