@@ -1,7 +1,7 @@
 /*primera sección: código usuario*/
 
 package analizadores;
-//import java_cup.runtime.*;
+/import java_cup.runtime.*;
 
 /*segunda sección: configuración*/
 %%
@@ -32,14 +32,32 @@ package analizadores;
 //	errorsList = new ArrayLIst<>() ;
 //%init}
 
+//reservadas
+
+DEF =  "def"|"Def"
+BARRAS = "Barras"
+ PIE = "Pie"
+TITULO = "titulo"
+EJEX = "ejex"
+EJEY = "ejey"
+ETIQUETAS = "etiquetas" 
+VALORES = "valores"
+UNIR = "unir"
+TIPO  = "tipo"
+TOTAL = "total"
+EXTRA = "extra"
+EJECUTAR = "Ejecutar"
+
 //tokens
-ENTERO = [0-9]
-LETRA = [a-zA-Z]
+
+ENTERO = [(0-9)+((.)(0-9)+)*]
+LETRA = [a-zA-Z]+
 COMA = ","
 DOSPUNTOS = ":"
 PUNTOCOMA = ";"
-COMENTARIO = "#"
+COMENTARIO = [#(a-zA-Z|0-9)*]+
 ESPACIO = [ , \n, \t, \r]+
+//CADENA  \"[^"]*\"
 
 //operadores aritmeticos
 MAS = "+"
@@ -55,20 +73,22 @@ LLAVECIERRA = "}"
 CORCHETEABRE = "["
 CORCHETECIERRA = "]"
 
-//reservadas
-
-DEF =  "def"|"Def"
-
-//Expresiones regulares armadas para poder identificar cadenas
-
-NUMERO = [ENTERO]+
-PALABRA = [LETRA]+
-IDENTIFICADOR =  [LETRA][LETRA|ENTERO]+
-LINEA_COMENTARIO =  [COMENTARIO][LETRA(LETRA|ENTERO)]*
-//CADENA  \"[^"]*\"
-
 /*tercera sección: reglas léxicas*/
 %%
+
+{DEF}											{ System.out.printf("\nDEF (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{BARRAS}										{ System.out.printf("\nBARRAS   (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{PIE }									                 { System.out.printf("\nPIE  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{TITULO }										{ System.out.printf("\nTITULO  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{EJEX}											{ System.out.printf("\nEJEX (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{EJEY}											{ System.out.printf("\nEJEY (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{ETIQUETAS }									{ System.out.printf("\nETIQUETAS  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{VALORES}										{ System.out.printf("\nVALORES (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{UNIR}											{ System.out.printf("\nUNIR (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{TIPO}											{ System.out.printf("\nTIPO (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{TOTAL }										{ System.out.printf("\nTOTAL  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{EXTRA}										{ System.out.printf("\nEXTRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{EJECUTAR }									{ System.out.printf("\nEJECUTAR  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
 
 {ENTERO}										{ System.out.printf("\nENTERO (%s), ", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
 {LETRA}									         { System.out.printf("\nLETRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
@@ -82,7 +102,7 @@ LINEA_COMENTARIO =  [COMENTARIO][LETRA(LETRA|ENTERO)]*
 //yytext()); }
 {RESTA}										{ System.out.printf("\nRESTA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
 {MULTIPLICACION}								{ System.out.printf("\nMULTIPLICACION (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{DIVISION}										{ System.out.printf("\nDIVISION (%s)", yytext()); }
+{DIVISION}										{ System.out.printf("\nDIVISION (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);  }
 
 {PARENTESISABRE}								{ System.out.printf("\nPARENTESISABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
 {PARENTESISCIERRA}							{ System.out.printf("\nPARENTESISCIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
@@ -90,12 +110,5 @@ LINEA_COMENTARIO =  [COMENTARIO][LETRA(LETRA|ENTERO)]*
 {LLAVECIERRA}									{ System.out.printf("\nLLAVECIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
 {CORCHETEABRE}								{ System.out.printf("\nCORCHETEABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
 {CORCHETECIERRA}								{ System.out.printf("\nCORCHETECIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-
-{DEF}											{ System.out.printf("\nDEF (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-
-{NUMERO}										{ System.out.printf("\nNUMERO (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{PALABRA} 										{ System.out.printf("\nPALABRA (%s)",yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{IDENTIFICADOR}  								{ System.out.printf("\nIDENTIFICADOR (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{LINEA_COMENTARIO}							{ System.out.printf("\nLINEA_COMENTARIO (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
 
 [^]                             									{}
