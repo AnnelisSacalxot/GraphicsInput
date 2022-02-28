@@ -1,7 +1,7 @@
 /*primera sección: código usuario*/
 
 package analizadores;
-/import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
 
 /*segunda sección: configuración*/
 %%
@@ -10,11 +10,20 @@ package analizadores;
 %unicode
 %line
 %column
-//%cup
+%cup
+%type java_cup.runtime.Symbol
+%full
 %standalone //crea un main en jflex
 %public
 
 %{
+	private Symbol symbol(int type, Object value){
+		return new Symbol(type, yyline, yycolumn, value);
+	}
+
+		private Symbol symbol(int type){
+		return new Symbol(type, yyline, yycolumn);
+	}
 
 //errores
 
@@ -40,7 +49,7 @@ BARRAS = "Barras"
 TITULO = "titulo"
 EJEX = "ejex"
 EJEY = "ejey"
-ETIQUETAS = "etiquetas" 
+ETIQUETAS = "etiquetas"
 VALORES = "valores"
 UNIR = "unir"
 TIPO  = "tipo"
@@ -72,43 +81,45 @@ LLAVEABRE = "{"
 LLAVECIERRA = "}"
 CORCHETEABRE = "["
 CORCHETECIERRA = "]"
+COMILLAS = """
 
 /*tercera sección: reglas léxicas*/
 %%
 
-{DEF}											{ System.out.printf("\nDEF (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{BARRAS}										{ System.out.printf("\nBARRAS   (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{PIE }									                 { System.out.printf("\nPIE  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{TITULO }										{ System.out.printf("\nTITULO  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{EJEX}											{ System.out.printf("\nEJEX (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{EJEY}											{ System.out.printf("\nEJEY (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{ETIQUETAS }									{ System.out.printf("\nETIQUETAS  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{VALORES}										{ System.out.printf("\nVALORES (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{UNIR}											{ System.out.printf("\nUNIR (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{TIPO}											{ System.out.printf("\nTIPO (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{TOTAL }										{ System.out.printf("\nTOTAL  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{EXTRA}										{ System.out.printf("\nEXTRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
-{EJECUTAR }									{ System.out.printf("\nEJECUTAR  (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{DEF}											{ return new Symbol(sym.DEF, yyline + 1, yycolumn + 1, yytext()); }
+{BARRAS}										{ return new Symbol(sym.BARRAS, yyline + 1, yycolumn + 1, yytext()); }
+{PIE }									        { return new Symbol(sym.PIE, yyline + 1, yycolumn + 1, yytext()); }
+{TITULO }										{ return new Symbol(sym.TITULO, yyline + 1, yycolumn + 1, yytext());  }
+{EJEX}											{ return new Symbol(sym.EJEX, yyline + 1, yycolumn + 1, yytext());  }
+{EJEY}											{ return new Symbol(sym.EJEY, yyline + 1, yycolumn + 1, yytext()); }
+{ETIQUETAS }									{ return new Symbol(sym.ETIQUETAS, yyline + 1, yycolumn + 1, yytext()); }
+{VALORES}										{ return new Symbol(sym.VALORES, yyline + 1, yycolumn + 1, yytext()); }
+{UNIR}											{ return new Symbol(sym.UNIR, yyline + 1, yycolumn + 1, yytext()); }
+{TIPO}											{ return new Symbol(sym.TIPO, yyline + 1, yycolumn + 1, yytext()); }
+{TOTAL }										{ return new Symbol(sym.TOTAL, yyline + 1, yycolumn + 1, yytext()); }
+{EXTRA}										    { return new Symbol(sym.EXTRA, yyline + 1, yycolumn + 1, yytext()); }
+{EJECUTAR }									    { return new Symbol(sym.EJECUTAR, yyline + 1, yycolumn + 1, yytext()); }
 
-{ENTERO}										{ System.out.printf("\nENTERO (%s), ", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{LETRA}									         { System.out.printf("\nLETRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
-{COMA}											{ System.out.printf("\nCOMA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{DOSPUNTOS}									{ System.out.printf("\nDOSPUNTOS (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
-{PUNTOCOMA}									{ System.out.printf("\nPUNTOCOMA(%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
-{COMENTARIO}									{ System.out.printf("\nCOMENTARIO(%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }	
+{ENTERO}										{ return new Symbol(sym.ENTERO, yyline + 1, yycolumn + 1, yytext()); }
+{LETRA}									        { return new Symbol(sym.LETRA, yyline + 1, yycolumn + 1, yytext()); }
+{COMA}											{ return new Symbol(sym.COMA, yyline + 1, yycolumn + 1, yytext()); }
+{DOSPUNTOS}									    { return new Symbol(sym.DOSPUNTOS, yyline + 1, yycolumn + 1, yytext()); }
+{PUNTOCOMA}									    { return new Symbol(sym.PUNTOCOMA, yyline + 1, yycolumn + 1, yytext()); }
+{COMENTARIO}									{ return new Symbol(sym.COMENTARIO, yyline + 1, yycolumn + 1, yytext()); }
 {ESPACIO}										{/*Se ignoran*/}
 
-{MAS}											{ System.out.printf("\nMAS(%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}//System.out.printf("mas: %s \n", yytext()); return symbol(MAS, 
+{MAS}											{ return new Symbol(sym.MAS, yyline + 1, yycolumn + 1, yytext()); }//System.out.printf("mas: %s \n", yytext()); return symbol(MAS,
 //yytext()); }
-{RESTA}										{ System.out.printf("\nRESTA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{MULTIPLICACION}								{ System.out.printf("\nMULTIPLICACION (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{DIVISION}										{ System.out.printf("\nDIVISION (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);  }
+{RESTA}										    { return new Symbol(sym.RESTA, yyline + 1, yycolumn + 1, yytext()); }
+{MULTIPLICACION}								{ return new Symbol(sym.MULTIPLICACION, yyline + 1, yycolumn + 1, yytext()); }
+{DIVISION}										{ return new Symbol(sym.DIVISION, yyline + 1, yycolumn + 1, yytext());  }
 
-{PARENTESISABRE}								{ System.out.printf("\nPARENTESISABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
-{PARENTESISCIERRA}							{ System.out.printf("\nPARENTESISCIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{LLAVEABRE}									{ System.out.printf("\nLLAVEABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{LLAVECIERRA}									{ System.out.printf("\nLLAVECIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{CORCHETEABRE}								{ System.out.printf("\nCORCHETEABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
-{CORCHETECIERRA}								{ System.out.printf("\nCORCHETECIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{PARENTESISABRE}								{ return new Symbol(sym.PARENTESISABRE, yyline + 1, yycolumn + 1, yytext()); }
+{PARENTESISCIERRA}							    { return new Symbol(sym.PARENTESISCIERRA, yyline + 1, yycolumn + 1, yytext()); }
+{LLAVEABRE}									    { return new Symbol(sym.LLAVEABRE, yyline + 1, yycolumn + 1, yytext()); }
+{LLAVECIERRA}									{ return new Symbol(sym.LLAVECIERRA, yyline + 1, yycolumn + 1, yytext()); }
+{CORCHETEABRE}								    { return new Symbol(sym.CORCHETEABRE, yyline + 1, yycolumn + 1, yytext()); }
+{CORCHETECIERRA}								{ return new Symbol(sym.CORCHETECIERRA, yyline + 1, yycolumn + 1, yytext()); }
+{COMILLAS}										{ return new Symbol(sym.COMILLAS, yyline + 1, yycolumn + 1, yytext()); }
 
 [^]                             									{}
