@@ -61,34 +61,41 @@ DEF =  "def"|"Def"
 
 //Expresiones regulares armadas para poder identificar cadenas
 
-//IDENTIFICADOR 
-//LINEA_COMENTARIO
+NUMERO = [ENTERO]+
+PALABRA = [LETRA]+
+IDENTIFICADOR =  [LETRA][LETRA|ENTERO]+
+LINEA_COMENTARIO =  [COMENTARIO][LETRA(LETRA|ENTERO)]*
 //CADENA  \"[^"]*\"
 
 /*tercera sección: reglas léxicas*/
 %%
 
-{ENTERO}										{ System.out.printf("\nENTERO (%s)", yytext()); }
-{LETRA}									         { System.out.printf("\nLETRA (%s)", yytext()); }
-{COMA}											{ System.out.printf("\nCOMA (%s)", yytext()); }
-{DOSPUNTOS}									{ System.out.printf("\nDOSPUNTOS (%s)", yytext()); }
-{PUNTOCOMA}									{ System.out.printf("\nPUNTOCOMA(%s)", yytext()); }
-{COMENTARIO}									{ System.out.printf("\nCOMENTARIO(%s)", yytext()); }	
+{ENTERO}										{ System.out.printf("\nENTERO (%s), ", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{LETRA}									         { System.out.printf("\nLETRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
+{COMA}											{ System.out.printf("\nCOMA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{DOSPUNTOS}									{ System.out.printf("\nDOSPUNTOS (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
+{PUNTOCOMA}									{ System.out.printf("\nPUNTOCOMA(%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
+{COMENTARIO}									{ System.out.printf("\nCOMENTARIO(%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }	
 {ESPACIO}										{/*Se ignoran*/}
 
-{MAS}											{ System.out.printf("\nMAS(%s)", yytext()); }//System.out.printf("mas: %s \n", yytext()); return symbol(MAS, 
+{MAS}											{ System.out.printf("\nMAS(%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}//System.out.printf("mas: %s \n", yytext()); return symbol(MAS, 
 //yytext()); }
-{RESTA}										{ System.out.printf("\nRESTA (%s)", yytext()); }
-{MULTIPLICACION}								{ System.out.printf("\nMULTIPLICACION (%s)", yytext()); }
+{RESTA}										{ System.out.printf("\nRESTA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{MULTIPLICACION}								{ System.out.printf("\nMULTIPLICACION (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
 {DIVISION}										{ System.out.printf("\nDIVISION (%s)", yytext()); }
 
-{PARENTESISABRE}								{ System.out.printf("\nPARENTESISABRE (%s)", yytext()); }
-{PARENTESISCIERRA}							{ System.out.printf("\nPARENTESISCIERRA (%s)", yytext()); }
-{LLAVEABRE}									{ System.out.printf("\nLLAVEABRE (%s)", yytext()); }
-{LLAVECIERRA}									{ System.out.printf("\nLLAVECIERRA (%s)", yytext()); }
-{CORCHETEABRE}								{ System.out.printf("\nCORCHETEABRE (%s)", yytext()); }
-{CORCHETECIERRA}								{ System.out.printf("\nCORCHETECIERRA (%s)", yytext()); }
+{PARENTESISABRE}								{ System.out.printf("\nPARENTESISABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn);}
+{PARENTESISCIERRA}							{ System.out.printf("\nPARENTESISCIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{LLAVEABRE}									{ System.out.printf("\nLLAVEABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{LLAVECIERRA}									{ System.out.printf("\nLLAVECIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{CORCHETEABRE}								{ System.out.printf("\nCORCHETEABRE (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
+{CORCHETECIERRA}								{ System.out.printf("\nCORCHETECIERRA (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }
 
-{DEF}											{ System.out.printf("\nDEF (%s)", yytext()); }  
+{DEF}											{ System.out.printf("\nDEF (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+
+{NUMERO}										{ System.out.printf("\nNUMERO (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{PALABRA} 										{ System.out.printf("\nPALABRA (%s)",yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{IDENTIFICADOR}  								{ System.out.printf("\nIDENTIFICADOR (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
+{LINEA_COMENTARIO}							{ System.out.printf("\nLINEA_COMENTARIO (%s)", yytext() +" en linea: "+yyline+" columna: "+yycolumn); }  
 
 [^]                             									{}
