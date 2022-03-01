@@ -44,7 +44,7 @@ precedence left CORCHETEABRE, CORCHETECIERRA;   //PARENTESISABRE, PARENTESISCIER
 
 start with inicio;
 
-//Jerarquia de Chomsky: gratica 2: gramatica de libre contexto
+//Jerarquia de Chomsky: gramatica 2: gramatica de libre contexto
 
 inicio				::= DEF BARRAS LLAVEABRE grafica_pie LLAVECIERRA
 					| DEF PIE LLAVEABRE grafica_barras LLAVECIERRA
