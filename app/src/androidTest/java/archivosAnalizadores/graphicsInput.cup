@@ -8,6 +8,16 @@ import java_cup.runtime.*;
 
 parser code {:
 
+    public SumasParser(GraphicsInput lexer) {
+            super(lexer);
+        }
+
+
+    public void syntax_error(Symbol cur_token) {
+        System.out.println("El error es el simbolo: " + sym.terminalNames[cur_token.sym]);
+        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+    }
+
 	private Symbol s;
 
 	public void syntax_error(Symbol s){

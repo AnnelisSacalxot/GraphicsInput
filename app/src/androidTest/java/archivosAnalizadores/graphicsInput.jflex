@@ -125,4 +125,4 @@ COMILLAS = "'"
 {CORCHETECIERRA}								{ return new Symbol(sym.CORCHETECIERRA, yyline + 1, yycolumn + 1, yytext()); }
 {COMILLAS}										{ return new Symbol(sym.COMILLAS, yyline + 1, yycolumn + 1, yytext()); }
 
-[^]                             									{}
+[^]                             									{error("Simbolo invalido <"+ yytext()+">");}

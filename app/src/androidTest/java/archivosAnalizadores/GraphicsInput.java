@@ -748,7 +748,7 @@ public class GraphicsInput implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { 
+            { error("Simbolo invalido <"+ yytext()+">");
             }
             // fall through
           case 29: break;

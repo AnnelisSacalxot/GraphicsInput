@@ -8,6 +8,7 @@ package analizadores;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.*;
 import analizadores.Graphics.java;
+import analizadores.sym;
 
 /*segunda sección: configuración*/
 
