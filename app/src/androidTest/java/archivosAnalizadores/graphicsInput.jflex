@@ -1,7 +1,9 @@
 /*primera sección: código usuario*/
 
-package archivosAnalizadores;
+package analizadores;
 import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
+import analizadores.Graphics.java;
 
 /*segunda sección: configuración*/
 %%
@@ -81,7 +83,7 @@ LLAVEABRE = "{"
 LLAVECIERRA = "}"
 CORCHETEABRE = "["
 CORCHETECIERRA = "]"
-COMILLAS = """
+COMILLAS = "'"
 
 /*tercera sección: reglas léxicas*/
 %%
